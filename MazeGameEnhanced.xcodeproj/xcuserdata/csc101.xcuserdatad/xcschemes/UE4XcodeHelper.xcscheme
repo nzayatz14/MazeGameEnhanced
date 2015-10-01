@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "C1FB2861CD3BF4769C098E24"
+              BlueprintIdentifier = "C4C6D628DEF83BD3D40540F3"
               BuildableName = "libUE4XcodeHelper.a"
               BlueprintName = "UE4XcodeHelper"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+              BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "C1FB2861CD3BF4769C098E24"
+           BlueprintIdentifier = "C4C6D628DEF83BD3D40540F3"
            BuildableName = "libUE4XcodeHelper.a"
            BlueprintName = "UE4XcodeHelper"
            ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -76,7 +76,7 @@
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "C1FB2861CD3BF4769C098E24"
+	          BlueprintIdentifier = "C4C6D628DEF83BD3D40540F3"
              BuildableName = "UE4XcodeHelper"
              BlueprintName = "UE4XcodeHelper"
              ReferencedContainer = "container:UE4.xcodeproj">
