@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+              BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+              BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+           BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
            BuildableName = "UE4CmdLineRun.xctest"
            BlueprintName = "UE4CmdLineRun"
            ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -61,7 +61,7 @@
      <BuildableProductRunnable>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+           BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
            BuildableName = "UE4CmdLineRun.xctest"
            BlueprintName = "UE4CmdLineRun"
            ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -82,7 +82,7 @@
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "EBD3C2F60ABCDE99458E4453"
+	          BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
              BuildableName = "UE4CmdLineRun.app"
              BlueprintName = "UE4CmdLineRun"
              ReferencedContainer = "container:UE4.xcodeproj">
