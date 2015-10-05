@@ -158,9 +158,13 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
 }
 
 
-//Pre: takes in the array of connections and the size of the array
-//Post: returns whether or not all of the elements in the array are in 1 set
-//checks to see if all the elements in the array are connected
+/** 
+ Takes in the array of connections checks to see whether or not all of the elements in the array are in 1 set
+ 
+ - parameter array: the array of connections made
+ - parameter size: the size of the array
+ - returns: a boolean representing whether or not all of the elements in the array are in 1 set
+*/
 bool AMaze::inOneSet(int array[], int size){
     
     //only one element is allowed to have a -1 as its component
@@ -177,9 +181,13 @@ bool AMaze::inOneSet(int array[], int size){
 }
 
 
-//Pre: takes in the array of connections and the starting point of which you want to find the leader
-//Post: returns the value that is at the "head" of that set
-//goes vertice to vertice until a vertice leads to a -1, then returns that vertice as the "head" of the set
+/**
+ Takes in an array and a start value and finds the "leader" if the line that start value is in
+ 
+ - parameter array: the array of connections made
+ - parameter start: the starting position of the lineage you wish to find the start of
+ - returns: the "leader" of that line
+ */
 int AMaze::findLeader(int array[], int start){
     int prev = start;
     int leader = array[start];
