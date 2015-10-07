@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "7DBEBEB590062C9C08543094"
+              BlueprintIdentifier = "9E848AE55E83181D29788A08"
               BuildableName = "MazeGameEnhanced.app"
               BlueprintName = "MazeGameEnhanced - iOS"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "71665C6627798BD8F3C6E09B"
+              BlueprintIdentifier = "1F82B301152A8440F3511FFD"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "7DBEBEB590062C9C08543094"
+           BlueprintIdentifier = "9E848AE55E83181D29788A08"
            BuildableName = "MazeGameEnhanced.app"
            BlueprintName = "MazeGameEnhanced - iOS"
            ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -61,7 +61,7 @@
      <BuildableProductRunnable>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "7DBEBEB590062C9C08543094"
+           BlueprintIdentifier = "9E848AE55E83181D29788A08"
            BuildableName = "MazeGameEnhanced.app"
            BlueprintName = "MazeGameEnhanced - iOS"
            ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -69,7 +69,7 @@
      </BuildableProductRunnable>
      <CommandLineArguments>
         <CommandLineArgument
-           argument = "&quot;/Users/csc101/Documents/Unreal Projects/MazeGameEnhanced/MazeGameEnhanced.uproject&quot;"
+           argument = "&quot;/Users/csc101/Documents/Michele/Unreal Projects/MazeGameEnhanced/MazeGameEnhanced.uproject&quot;"
            isEnabled = "YES">
         </CommandLineArgument>
         <CommandLineArgument
@@ -87,12 +87,12 @@
      buildConfiguration = "Development"
      debugDocumentVersioning = "YES">
      <PathRunnable
-        FilePath = "/Users/csc101/Documents/Unreal Projects/MazeGameEnhanced/Binaries/Mac/MazeGameEnhanced.app">
+        FilePath = "/Users/csc101/Documents/Michele/Unreal Projects/MazeGameEnhanced/Binaries/Mac/MazeGameEnhanced.app">
      </PathRunnable>
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "7DBEBEB590062C9C08543094"
+	          BlueprintIdentifier = "9E848AE55E83181D29788A08"
              BuildableName = "MazeGameEnhanced.app"
              BlueprintName = "MazeGameEnhanced"
              ReferencedContainer = "container:UE4.xcodeproj">
