@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-#include "inventory.h"
-#include "itemBasic.h"
 
 #include "GameFramework/Actor.h"
 #include "itemsSpawning.generated.h"

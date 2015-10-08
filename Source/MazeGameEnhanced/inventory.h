@@ -4,7 +4,6 @@
 
 #include "GameFramework/Actor.h"
 #include "inventory.generated.h"
-#include "itemBasic.h"
 
 UCLASS()
 class MAZEGAMEENHANCED_API Ainventory : public AActor

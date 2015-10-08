@@ -3,6 +3,8 @@
 #include "MazeGameEnhanced.h"
 #include "itemBasic.h"
 
+#include "inventory.h"
+#include "Avatar.h"
 
 // Sets default values
 AitemBasic::AitemBasic()

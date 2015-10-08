@@ -3,6 +3,10 @@
 #include "MazeGameEnhanced.h"
 #include "Maze.h"
 
+#include "Wall.h"
+#include "itemsSpawning.h"
+#include "inventory.h"
+
 AWall **myWalls;
 
 // Sets default values

@@ -3,6 +3,9 @@
 #include "MazeGameEnhanced.h"
 #include "itemsSpawning.h"
 
+#include "inventory.h"
+#include "itemBasic.h"
+
 // Sets default values
 AitemsSpawning::AitemsSpawning()
 {

@@ -3,6 +3,7 @@
 #include "MazeGameEnhanced.h"
 #include "inventory.h"
 
+#include "itemBasic.h"
 
 // Sets default values
 Ainventory::Ainventory()
