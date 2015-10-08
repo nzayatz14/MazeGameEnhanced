@@ -3,33 +3,32 @@
 #include "MazeGameEnhanced.h"
 #include "Avatar.h"
 
-
 // Sets default values
 AAvatar::AAvatar()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+   // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+   PrimaryActorTick.bCanEverTick = true;
     
 }
 
 // Called when the game starts or when spawned
 void AAvatar::BeginPlay()
 {
-	Super::BeginPlay();
-	
+   Super::BeginPlay();
+   
 }
 
 // Called every frame
 void AAvatar::Tick( float DeltaTime )
 {
-	Super::Tick( DeltaTime );
+   Super::Tick( DeltaTime );
 
 }
 
 // Called to bind functionality to input
 void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
-	//Super::SetupPlayerInputComponent(InputComponent);
+   //Super::SetupPlayerInputComponent(InputComponent);
     check(InputComponent);
     InputComponent->BindAxis("Forward", this, &AAvatar::MoveForward);
     InputComponent->BindAxis("Strafe", this, &AAvatar::MoveRight);
@@ -64,7 +63,12 @@ void AAvatar::Yaw(float amount)
 
 void AAvatar::ToggleInventory()
 {
+   /*
     if(GEngine)
         GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Red, "Inventory ..");
+   */
+   // Every "item" has inventory *(itemName->HeroBag)
+   //    On call, how can I get to any of the item's HeroBag pointer?
+   //TMap<FString, int> MyInventory = itemName->HeroBag->GetInventory();
 }
 

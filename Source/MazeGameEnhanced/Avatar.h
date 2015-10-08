@@ -8,20 +8,22 @@
 UCLASS()
 class MAZEGAMEENHANCED_API AAvatar : public ACharacter
 {
-	GENERATED_BODY()
+   GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AAvatar();
+   // Sets default values for this character's properties
+   AAvatar();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+   //void *MyInventory;
 
-	// Called to bind functionality to input
-	//virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+   // Called when the game starts or when spawned
+   virtual void BeginPlay() override;
+   
+   // Called every frame
+   virtual void Tick( float DeltaSeconds ) override;
+
+   // Called to bind functionality to input
+   //virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
     void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
     
@@ -29,6 +31,5 @@ public:
     void MoveRight(float amount);
     void Yaw(float amount);
     
-    void ToggleInventory();
-	
+    void ToggleInventory();   
 };

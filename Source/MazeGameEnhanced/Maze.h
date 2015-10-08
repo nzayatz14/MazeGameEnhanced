@@ -1,9 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "Wall.h"
+#include "itemsSpawning.h"
+#include "inventory.h"
 
 #include "GameFramework/Actor.h"
 #include "Maze.generated.h"
+
 
 UCLASS()
 class MAZEGAMEENHANCED_API AMaze : public AActor

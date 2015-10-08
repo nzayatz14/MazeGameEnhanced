@@ -2,15 +2,14 @@
 
 #include "MazeGameEnhanced.h"
 #include "Maze.h"
-#include "Wall.h"
 
 AWall **myWalls;
 
 // Sets default values
 AMaze::AMaze()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+   PrimaryActorTick.bCanEverTick = true;
     
     // Create dummy root scene component
     DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
@@ -21,8 +20,8 @@ AMaze::AMaze()
 // Called when the game starts or when spawned
 void AMaze::BeginPlay()
 {
-	Super::BeginPlay();
-	
+   Super::BeginPlay();
+   
     createMaze(2000, 2000, 10, 10);
     
 }
@@ -30,7 +29,7 @@ void AMaze::BeginPlay()
 // Called every frame
 void AMaze::Tick( float DeltaTime )
 {
-	Super::Tick( DeltaTime );
+   Super::Tick( DeltaTime );
 
 }
 
@@ -51,8 +50,11 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     int verticals = 0;
     
     myWalls = new AWall*[numBorders];
-    
-    
+
+    // when the walls spawn, spawn all the items distributed to fit rows, columns, spaceBetween
+    AitemsSpawning *allItems = GetWorld()->SpawnActor<AitemsSpawning>(FVector(-100,-100,-500), FRotator(0,0,0));
+    allItems->spawn(rows, cols, spaceBetweenBorders, this->GetActorLocation());
+
     //generate the horizontal walls
     for (int i = 0; i<=cols; i++){
         for (int j = 0; j<rows; j++){
