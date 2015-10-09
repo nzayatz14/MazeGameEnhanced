@@ -2,15 +2,18 @@
 
 #include "MazeGameEnhanced.h"
 #include "Maze.h"
+
 #include "Wall.h"
+#include "itemsSpawning.h"
+#include "inventory.h"
 
 AWall **myWalls;
 
 // Sets default values
 AMaze::AMaze()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+   PrimaryActorTick.bCanEverTick = true;
     
     // Create dummy root scene component
     DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
@@ -21,17 +24,20 @@ AMaze::AMaze()
 // Called when the game starts or when spawned
 void AMaze::BeginPlay()
 {
-	Super::BeginPlay();
-	
-    createMaze(2000, 2000, 10, 10);
-    
+   Super::BeginPlay();
+   int rows, cols;
+   rows = 6;
+   cols = 6;
+   maxX = 200 * cols;
+   maxY = 200 * rows;
+   createMaze(maxX,maxY,rows,cols);
 }
 
 // Called every frame
 void AMaze::Tick( float DeltaTime )
 {
-	Super::Tick( DeltaTime );
 
+   Super::Tick( DeltaTime );
 }
 
 
@@ -49,15 +55,20 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     int numSpaces = rows*cols;
     int numBorders = rows*(cols+1) + cols*(rows+1);
     int verticals = 0;
-    
+    FVector BlockLocation = FVector(0,0,0);
+    mazeDimensions = FVector2D(rows, cols);
     myWalls = new AWall*[numBorders];
-    
-    
+    allTheWalls = new bool[numBorders];
+
+    // when the walls spawn, spawn all the items distributed to fit rows, columns, spaceBetween
+    AitemsSpawning *allItems = GetWorld()->SpawnActor<AitemsSpawning>(FVector(-100,-100,-500), FRotator(0,0,0));
+    allTheItems = allItems->spawn(rows, cols, spaceBetweenBorders, BlockLocation );
+
     //generate the horizontal walls
     for (int i = 0; i<=cols; i++){
         for (int j = 0; j<rows; j++){
             
-            FVector BlockLocation = FVector(spaceBetweenBorders*i, spaceBetweenBorders*j, 0.f);
+            BlockLocation = FVector(spaceBetweenBorders*i, spaceBetweenBorders*j, 0.f);
             
             AWall* NewWall = GetWorld()->SpawnActor<AWall>(BlockLocation, FRotator(0,90,0));
             NewWall->setMeshSize(spaceBetweenBorders, 400);
@@ -78,7 +89,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     for (int i = 0; i<=rows; i++){
         for (int j = 0; j<cols; j++){
             
-            FVector BlockLocation = FVector(spaceBetweenBorders*j, spaceBetweenBorders*i, 0.f);
+            BlockLocation = FVector(spaceBetweenBorders*j, spaceBetweenBorders*i, 0.f);
             
             AWall* NewWall = GetWorld()->SpawnActor<AWall>(BlockLocation, FRotator(0,0,0));
             NewWall->setMeshSize(spaceBetweenBorders, 400);
@@ -100,6 +111,8 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     for(int i = 0;i<numSpaces;i++){
         disjointSets[i] = -1;
     }
+    for(int i=0; i<numBorders; i++)
+        allTheWalls[i] = true;
     
     int wall;
     int space1;
@@ -133,6 +146,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
             if(!(leader1 == leader2 && leader1 != -1)){
                 disjointSets[leader1] = space2;
                 myWalls[wall]->setIsStanding(false);
+                allTheWalls[wall] = false;
             }
         }
     }
@@ -144,16 +158,18 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
+        allTheWalls[wall] = false;
     }
     
     //end opening
     wall = rand()%rows + (numSpaces);
     
     FString cross = FString::FromInt(wall);
-    GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Green, *cross);
+    //GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Green, *cross);
     
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
+        allTheWalls[wall] = false;
     }
 }
 
