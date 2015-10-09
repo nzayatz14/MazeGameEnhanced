@@ -23,25 +23,29 @@ public:
 	// Sets default values for this actor's properties
 	AitemBasic();
 
-	void *HeroBag;
 	bool found;
+	char itemType;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	FVector2D mazeLocation;
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
 	//testing
 	void spinWithQuaternion();
+	
+	//UFUNCTION()
+	//	void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
 
-	UFUNCTION()
-		void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
 
 public:
 	/** Returns DummyRoot subobject **/
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 	/** Returns BlockMesh subobject **/
 	FORCEINLINE class UStaticMeshComponent* GetItemBasicMesh() const { return ItemBasicMesh; }
+	FORCEINLINE FVector2D GetMazeLocation() const { return mazeLocation; }
 
 };

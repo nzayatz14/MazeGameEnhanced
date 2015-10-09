@@ -30,7 +30,7 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	void spawn(int , int , float , FVector);
+	FVector* spawn(int , int , float , FVector);
 	
 public:
 	/** Returns DummyRoot subobject **/

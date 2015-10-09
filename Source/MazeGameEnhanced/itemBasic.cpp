@@ -5,21 +5,35 @@
 
 #include "inventory.h"
 #include "Avatar.h"
+#include <random>
 
 // Sets default values
 AitemBasic::AitemBasic()
 {
+   std::random_device rd;
    found = false;
    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
    PrimaryActorTick.bCanEverTick = true;
 
    struct FConstructorStatics
    {
-      ConstructorHelpers::FObjectFinderOptional<UStaticMesh> genericItemShape;
-      ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> genericItemMaterial;
+      ConstructorHelpers::FObjectFinderOptional<UStaticMesh> genericItemShapeA;
+      ConstructorHelpers::FObjectFinderOptional<UStaticMesh> genericItemShapeB;
+      ConstructorHelpers::FObjectFinderOptional<UStaticMesh> genericItemShapeC;
+      ConstructorHelpers::FObjectFinderOptional<UStaticMesh> genericItemShapeD;
+      ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> genericItemMaterialA;
+      ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> genericItemMaterialB;
+      ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> genericItemMaterialC;
+      ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> genericItemMaterialD;
       FConstructorStatics()
-         : genericItemShape(TEXT("/Game/items/itemBasic_Shape.itemBasic_Shape"))
-         , genericItemMaterial(TEXT("/Game/items/itemBasic_Material.itemBasic_Material"))
+         : genericItemShapeA(TEXT("/Game/items/itemBasic_Shape.itemBasic_Shape"))
+         , genericItemShapeB(TEXT("/Game/items/itemBasic_PyramidShape.itemBasic_PyramidShape"))
+         , genericItemShapeC(TEXT("/Game/items/itemBasic_MacaroniShape.itemBasic_MacaroniShape"))
+         , genericItemShapeD(TEXT("/Game/items/itemBasic_CheeseShape.itemBasic_CheeseShape"))
+         , genericItemMaterialA(TEXT("/Game/items/itemBasic_Material.itemBasic_Material"))
+         , genericItemMaterialB(TEXT("/Game/items/itemBasic_Material2.itemBasic_Material2"))
+         , genericItemMaterialC(TEXT("/Game/items/itemBasic_Material3.itemBasic_Material3"))
+         , genericItemMaterialD(TEXT("/Game/items/itemBasic_Material4.itemBasic_Material4"))
       {
       }
    };
@@ -29,18 +43,36 @@ AitemBasic::AitemBasic()
    DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
    RootComponent = DummyRoot;
 
-   // Create static mesh component
    ItemBasicMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("item_shape"));
-   ItemBasicMesh->SetStaticMesh(ConstructorStatics.genericItemShape.Get());
+   // Create random mesh component
+   switch(rd()%4){
+      case 0:
+         ItemBasicMesh->SetStaticMesh(ConstructorStatics.genericItemShapeA.Get());
+         ItemBasicMesh->SetMaterial(0, ConstructorStatics.genericItemMaterialA.Get());
+         itemType = 'A';   //red pill
+         break;
+      case 1:  
+         ItemBasicMesh->SetStaticMesh(ConstructorStatics.genericItemShapeB.Get());  
+         ItemBasicMesh->SetMaterial(0, ConstructorStatics.genericItemMaterialB.Get());
+         itemType = 'B';   //blue pyramid
+         break;
+      case 2:  
+         ItemBasicMesh->SetStaticMesh(ConstructorStatics.genericItemShapeC.Get());  
+         ItemBasicMesh->SetMaterial(0, ConstructorStatics.genericItemMaterialC.Get());
+         itemType = 'C';   //yellow macaroni
+         break;
+      case 3:  
+         ItemBasicMesh->SetStaticMesh(ConstructorStatics.genericItemShapeD.Get());  
+         ItemBasicMesh->SetMaterial(0, ConstructorStatics.genericItemMaterialD.Get());
+         itemType = 'D';   //green cheese (ew)
+         break;
+   }
    ItemBasicMesh->SetRelativeScale3D(FVector(1.f,1.f,1.f));
-   ItemBasicMesh->SetRelativeLocation(FVector(0.f,0.f,0.f));
-   ItemBasicMesh->SetMaterial(0, ConstructorStatics.genericItemMaterial.Get());
+   ItemBasicMesh->SetRelativeLocation(FVector(0.f,0.f,50.f));
+   ItemBasicMesh->SetRelativeRotation(FRotator(15.f, 15.f, 0.f));
    ItemBasicMesh->AttachTo(DummyRoot);
    //ItemBasicMesh->SetSimulatePhysics(true);
-
-   this->OnActorHit.AddDynamic(this, &AitemBasic::onHit);
 }
-
 // Called when the game starts or when spawned
 void AitemBasic::BeginPlay()
 {
@@ -53,31 +85,44 @@ void AitemBasic::Tick( float DeltaTime )
 {
    Super::Tick( DeltaTime );
 
-   GEngine -> AddOnScreenDebugMessage( 0, 5.f, FColor::Blue, "Test" );
-
+   // lol just kidding, this crashes UE4 on mac, but not windows. 
+   //    Just do yaw.
    spinWithQuaternion();
 }
-
-void AitemBasic::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit)
+void AitemBasic::spinWithQuaternion()
 {
-   // If the hero touched me, I need to go into *HeroBag and "despawn"
-   if(neighbor && (neighbor->GetActorLabel()).Contains( TEXT("Avatar"), ESearchCase::CaseSensitive, ESearchDir::FromEnd ) && !found){
-      //(AAvatar*)Aneighbor->MyInventory = HeroBag;
-      found = true;
-      Self->SetActorLocation( FVector(0, 0, -1000) );
-      ((Ainventory*)HeroBag)->push(neighbor->GetActorLabel());
-   }
+   FRotator ActorRotator = this->GetActorRotation();
+   ActorRotator.Yaw +=2;
+   this->SetActorRotation(ActorRotator);
+   /*       CRASHES MY COMPUTER
+   FVector actorLocation, rotatePoint, rotateAxis, diff;
+   FQuat q, nuuq;
+   float angleInDegrees = 1;
 
-   /*
-   int i=0;
-   auto it = ((Ainventory*)HeroBag)->GetInventory()->CreateIterator();
-   for( ; it; ++it){
-      i++;
-      GEngine->AddOnScreenDebugMessage(i++, 15.f, FColor::Green, it->Key);
-   }
+   // What's the anchor for this rotation?
+   rotatePoint = FVector(0, 0, 500);
+   // What's the axis for this rotation? (normalized)
+   rotateAxis = FVector(0, 0, 1);
+   // Who am I rotating?
+   actorLocation = this->GetActorLocation();
+   // What's the current quaternion?
+   q = this->GetActorQuat();
+
+   // IMPLEMENT
+   //    Move the object
+   diff = actorLocation - rotatePoint;
+   //    Make the change quaternion
+   //    Move the anchor, relate it back to original
+   //actorLocation = diff.RotateAngleAxis(angleInDegrees, rotateAxis);
+   //actorLocation = actorLocation + rotatePoint;
+   //    Use the quaternion
+   q = FQuat(rotateAxis, angleInDegrees * 180.0 / 3.14159);
+   nuuq = this->GetActorQuat() * q;
+   this->SetActorLocationAndRotation(actorLocation, nuuq);
    */
-   
-   /*
+
+
+   /*    Class notes
       FRotator ActorRotator = neighbor->GetActorRotation();
       FVector xProduct;
 
@@ -90,35 +135,5 @@ void AitemBasic::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, co
             ActorRotator.Yaw -=2;
          neighbor->SetActorRotation(ActorRotator);
       };
-   */
-}
-
-void AitemBasic::spinWithQuaternion()
-{
-   /*       CRASHES MY COMPUTER
-   FVector actorLocation, rotatePoint, rotateAxis, diff;
-   FQuat q, nuuq;
-   float angleInDegrees = 1;
-
-   // What's the anchor for this rotation?
-   rotatePoint = FVector(0, 0, 0);
-   // What's the axis for this rotation? (normalized)
-   rotateAxis = FVector(0, 1, 0);
-   // Who am I rotating?
-   actorLocation = this->GetActorLocation();
-   // What's the current quaternion?
-   q = this->GetActorQuat();
-
-   // IMPLEMENT
-   //    Move the object
-   diff = actorLocation - rotatePoint;
-   //    Make the change quaternion
-   //    Move the anchor, relate it back to original
-   actorLocation = diff.RotateAngleAxis(angleInDegrees, rotateAxis);
-   actorLocation = actorLocation + rotatePoint;
-   //    Use the quaternion
-   q = FQuat(rotateAxis, angleInDegrees * 180.0 / 3.14159);
-   nuuq = this->GetActorQuat() * q;
-   this->SetActorLocationAndRotation(actorLocation, nuuq);
    */
 }

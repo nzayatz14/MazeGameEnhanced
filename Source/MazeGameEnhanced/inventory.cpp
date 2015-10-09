@@ -38,7 +38,6 @@ void Ainventory::push(FString itemName)
    }  
    if(!exists)
       MyInventory.Add(itemName, 1);
-   GEngine->AddOnScreenDebugMessage(5, 3.f, FColor::Red, FString::FromInt(GetItemCnt(itemName)));
 }
 
 int Ainventory::GetItemCnt(FString itemName)

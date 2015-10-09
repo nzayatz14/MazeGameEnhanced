@@ -5,6 +5,7 @@
 
 #include "inventory.h"
 #include "itemBasic.h"
+#include <random>
 
 // Sets default values
 AitemsSpawning::AitemsSpawning()
@@ -16,8 +17,8 @@ AitemsSpawning::AitemsSpawning()
 // Called when the game starts or when spawned
 void AitemsSpawning::BeginPlay()
 {
+
    Super::BeginPlay();
-   
 }
 
 // Called every frame
@@ -27,30 +28,38 @@ void AitemsSpawning::Tick( float DeltaTime )
    Super::Tick( DeltaTime );
 }
 
-void AitemsSpawning::spawn(int rows, int columns, float widthApart, FVector thisLoc)
+FVector* AitemsSpawning::spawn(int rows, int columns, float widthApart, FVector thisLoc)
 {
-   /*    This worked in Maze.cpp
-   Ainventory *heroInventory = GetWorld()->SpawnActor<Ainventory>(FVector(-500, -500, -1000), FRotator(0,0,0));
-   AitemBasic *testItem = GetWorld()->SpawnActor<AitemBasic>(FVector(-500, -500, 100), FRotator(0,90,0));
-   testItem->HeroBag = heroInventory;
-   */
-
-   // Assign this "bag" for all of the items. For the onHit, it'll dump into here.
-   Ainventory *HeroBag = GetWorld()->SpawnActor<Ainventory>(FVector(-500, -500, -1000), FRotator(0,0,0));
-
-   // For each item spawned, make sure it has its inventory set to the main one
+   bool blocked;
+   int i=0;
    AitemBasic *newItem;
-   for(int i=0; i<5; i++){
-      newItem = GetWorld()->SpawnActor<AitemBasic>
-         ( thisLoc + FVector(-i*500, -200.f, 0.f), FRotator(0,0,0) );
-      newItem->HeroBag = HeroBag;
+   int basicItemCount = ( (rows>columns)?rows:columns ) - 2;
+   FVector *allTheItems;
+   allTheItems = new FVector[basicItemCount];
+   for(i=0; i<basicItemCount; i++)
+      allTheItems[i] = FVector(-1, -1, -1);
+   i=0;
+   int blockID;
+   int colNum, rowNum;
+   std::random_device rd;
+   while(i<basicItemCount){
+      blocked = false;
+      // choose a random block [0..rows*columns-1]
+      blockID = rd() % (rows * columns);
+      // get the col# and row# of that block
+      colNum = blockID % columns ;
+      rowNum = blockID / columns ;
+      for(int j=0; j<basicItemCount; j++)
+         if((int)(allTheItems[j].X+.5) == rowNum && (int)(allTheItems[j].Y+.5) == colNum)
+            blocked = true;
+      if(!blocked){
+         allTheItems[i] = FVector(rowNum, colNum, 0);
+         // spawn at ( (col#+.5)*widthApart, (row#+.5)*widthApart, offTheGround )
+         newItem = GetWorld()->SpawnActor<AitemBasic>
+            ( thisLoc + FVector( ((float)colNum+.5)*widthApart, ((float)rowNum+.5)*widthApart, 75.f+50 ), FRotator(0,0,0) );
+         newItem->mazeLocation = FVector2D (rowNum, colNum); 
+         i++;  
+      }
    }
+   return allTheItems;
 }
-
-
-
-
-
-
-
-

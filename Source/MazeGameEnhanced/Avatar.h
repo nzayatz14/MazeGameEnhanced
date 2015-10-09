@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "inventory.h"
+
 #include "GameFramework/Character.h"
 #include "Avatar.generated.h"
 
@@ -14,7 +16,9 @@ public:
    // Sets default values for this character's properties
    AAvatar();
 
-   //void *MyInventory;
+   //void *HeroBag;
+   Ainventory *HeroBag;
+   bool HUDOn;
 
    // Called when the game starts or when spawned
    virtual void BeginPlay() override;
@@ -30,6 +34,11 @@ public:
     void MoveForward(float amount);
     void MoveRight(float amount);
     void Yaw(float amount);
+    void Pitch(float amount);
     
-    void ToggleInventory();   
+    void ToggleInventory();  
+
+    UFUNCTION()
+      void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
+
 };
