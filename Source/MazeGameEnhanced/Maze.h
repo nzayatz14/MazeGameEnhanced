@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "Maze.generated.h"
 
+
 UCLASS()
 class MAZEGAMEENHANCED_API AMaze : public AActor
 {
@@ -19,6 +20,12 @@ public:
     
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
+
+    bool *allTheWalls;
+    FVector *allTheItems;
+    FVector2D mazeDimensions;
+
+    float maxX, maxY;
     
     // Called every frame
     virtual void Tick( float DeltaSeconds ) override;
@@ -26,10 +33,13 @@ public:
 public:
     /** Returns DummyRoot subobject **/
     FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
+    FORCEINLINE bool* GetAllAWall(){return allTheWalls;}
+    FORCEINLINE FVector2D GetMazeDimensions(){return mazeDimensions;}
+    FORCEINLINE FVector* GetAllTheItems(){return allTheItems;}
+    FORCEINLINE FVector2D GetMazeMeshMaxs() {return FVector2D(maxX, maxY);}
     
 private:
     void createMaze(float x, float y, int numWallsX, int numWallsY);
     bool inOneSet(int array[], int size);
     int findLeader(int array[], int start);
-    
 };
