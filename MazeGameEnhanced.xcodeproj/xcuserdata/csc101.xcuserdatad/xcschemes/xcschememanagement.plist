@@ -2,6 +2,59 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>MazeGameEnhanced - Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>MazeGameEnhanced - iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>MazeGameEnhancedEditor - Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>UE4CmdLineRun 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>UE4CmdLineRun.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>UE4Editor - Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>UE4Game - Mac 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>UE4Game - Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>UE4Game - iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>UE4XcodeHelper.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>00BE260A16A0CE7F35958E3E</key>
@@ -10,6 +63,16 @@
 			<true/>
 		</dict>
 		<key>01D7F5FA0216AC6226A1280E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>076F2B0B7A3C8156B64CDC81</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>07B10EDE3DACF141FA264895</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -74,12 +137,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4C0AEEB6388CDD35C5F225B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>55C54D6E25F988E611BE8773</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>56D4031E8E54F84FF7628E09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>71665C6627798BD8F3C6E09B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7789DDDFF9038CCB54ACB8D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -180,6 +258,11 @@
 			<true/>
 		</dict>
 		<key>F7B0A48960FF79ABE56FC202</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB48C4AFA9B49D5EF404E49F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
