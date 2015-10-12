@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "MyHud.h"
+
 #include "GameFramework/GameMode.h"
 #include "AvatarGameMode.generated.h"
 
@@ -12,8 +14,5 @@ UCLASS()
 class MAZEGAMEENHANCED_API AAvatarGameMode : public AGameMode
 {
 	GENERATED_BODY()
-	
-	
-	
-	
+
 };
