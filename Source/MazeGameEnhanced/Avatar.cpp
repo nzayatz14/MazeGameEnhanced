@@ -94,6 +94,9 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
     InputComponent->BindAxis("Yaw", this, &AAvatar::Yaw);
     InputComponent->BindAxis("Pitch", this, &AAvatar::Pitch);
     InputComponent->BindAction("Inventory",IE_Pressed, this, &AAvatar::ToggleInventory);
+    InputComponent->BindAction("Jump", IE_Pressed, this, &AAvatar::OnStartJump);
+    InputComponent->BindAction("Jump", IE_Released, this, &AAvatar::OnStopJump);
+
 }
 void AAvatar::MoveForward(float amount)
 {
@@ -125,3 +128,13 @@ void AAvatar::Pitch(float amount)
     
     AddControllerPitchInput(-200.f * amount * GetWorld()->GetDeltaSeconds());
 }
+void AAvatar::OnStartJump()
+{
+    bPressedJump = true;
+    
+}
+void AAvatar::OnStopJump()
+{
+    bPressedJump = false;
+}
+

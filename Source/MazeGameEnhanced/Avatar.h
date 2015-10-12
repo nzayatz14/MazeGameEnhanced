@@ -40,5 +40,11 @@ public:
 
     UFUNCTION()
       void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
+    //sets jump flag when key is pressed
+    UFUNCTION()
+    void OnStartJump();
+    //clears jump flag when key is released
+    UFUNCTION()
+    void OnStopJump();
 
 };
