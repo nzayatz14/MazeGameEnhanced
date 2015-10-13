@@ -178,6 +178,8 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
         allTheWalls[wall] = false;
+        
+        finishingLocation = myWalls[wall]->GetActorLocation();
     }
 }
 

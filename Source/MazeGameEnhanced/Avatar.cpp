@@ -5,6 +5,7 @@
 
 #include "inventory.h"
 #include "itemBasic.h"
+#include "itemsSpawning.h"
 #include "Maze.h"
 
 //Ainventory *HeroBag;
@@ -12,82 +13,95 @@
 // Sets default values
 AAvatar::AAvatar()
 {
-   // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-   //PrimaryActorTick.bCanEverTick = true;
-
-  HUDOn = true;
+    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    //PrimaryActorTick.bCanEverTick = true;
+    
+    HUDOn = true;
 }
 
 // Called when the game starts or when spawned
 void AAvatar::BeginPlay()
 {
-   Super::BeginPlay();
-
-   this->OnActorHit.AddDynamic(this, &AAvatar::onHit);
-   //Create a bag somewhere for the Hero
-   HeroBag = GetWorld()->SpawnActor<Ainventory>( FVector(-500, -500.f, -5000.f), FRotator(0,0,0) );
+    Super::BeginPlay();
+    
+    this->OnActorHit.AddDynamic(this, &AAvatar::onHit);
+    //Create a bag somewhere for the Hero
+    HeroBag = GetWorld()->SpawnActor<Ainventory>( FVector(-500, -500.f, -5000.f), FRotator(0,0,0) );
 }
 
 void AAvatar::ToggleInventory()
 {
-   
-   HUDOn = (!HUDOn);
+    
+    HUDOn = (!HUDOn);
 }
 
 void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit)
 {
-   int row, col;
-   FVector *AllTheItems;
-   FVector2D MazeDimensions;
-   // If the hero touched an item, drop it into his inventory and set it to found
-   if(neighbor && (neighbor->GetActorLabel()).Contains( TEXT("itemBasic"), ESearchCase::CaseSensitive, ESearchDir::FromEnd )) {
-      if(! (((AitemBasic*)neighbor)->found) ){
-         ((AitemBasic*)neighbor)->found = true;
-         row = ((AitemBasic*)neighbor)->GetMazeLocation().X;
-         col = ((AitemBasic*)neighbor)->GetMazeLocation().Y;
-         TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
-         if(ActorItr){
-            AllTheItems = ActorItr->GetAllTheItems();
-            MazeDimensions = ActorItr->GetMazeDimensions();
-            for(int i=0; i< ((MazeDimensions.X>MazeDimensions.Y)?MazeDimensions.X-2:MazeDimensions.Y-2) ; i++){
-               if((int)(AllTheItems[i].X) == row && (int)(AllTheItems[i].Y) == col )
-                  AllTheItems[i].Z = 1;
+    int row, col;
+    FVector *AllTheItems;
+    FVector2D MazeDimensions;
+    // If the hero touched an item, drop it into his inventory and set it to found
+    if(neighbor && (neighbor->GetActorLabel()).Contains( TEXT("itemBasic"), ESearchCase::CaseSensitive, ESearchDir::FromEnd )) {
+        if(! (((AitemBasic*)neighbor)->found) ){
+            ((AitemBasic*)neighbor)->found = true;
+            row = ((AitemBasic*)neighbor)->GetMazeLocation().X;
+            col = ((AitemBasic*)neighbor)->GetMazeLocation().Y;
+            TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
+            if(ActorItr){
+                AllTheItems = ActorItr->GetAllTheItems();
+                MazeDimensions = ActorItr->GetMazeDimensions();
+                for(int i=0; i< ((MazeDimensions.X>MazeDimensions.Y)?MazeDimensions.X-2:MazeDimensions.Y-2) ; i++){
+                    if((int)(AllTheItems[i].X) == row && (int)(AllTheItems[i].Y) == col )
+                        AllTheItems[i].Z = 1;
+                }
             }
-         }
-         neighbor->SetActorLocation( FVector(0, 0, -1000) );
-         //increment itemBasic in Hero's Bag
-         switch(((AitemBasic*)neighbor)->itemType){
-            case 'A':
-               HeroBag->push("Pill");
-               break;
-            case 'B':
-               HeroBag->push("Pyramid");
-               break;
-            case 'C':
-               HeroBag->push("Macaroni");
-               break;
-            case 'D':
-               HeroBag->push("Moldy Cheese");
-               break;
-            default:
-               HeroBag->push("Trash");
-               break;
-         }
-      }
-   }
+            neighbor->SetActorLocation( FVector(0, 0, -1000) );
+            //increment itemBasic in Hero's Bag
+            switch(((AitemBasic*)neighbor)->itemType){
+                case 'A':
+                    HeroBag->push("Pill");
+                    break;
+                case 'B':
+                    HeroBag->push("Pyramid");
+                    break;
+                case 'C':
+                    HeroBag->push("Macaroni");
+                    break;
+                case 'D':
+                    HeroBag->push("Moldy Cheese");
+                    break;
+                default:
+                    HeroBag->push("Trash");
+                    break;
+            }
+        }
+        
+        //check to see if all items have been found
+        TActorIterator<AitemsSpawning> ActorItrItems =TActorIterator<AitemsSpawning>(GetWorld());
+        if(ActorItrItems){
+            if(ActorItrItems->allItemsFound()){
+                hasAllItems = true;
+                GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Blue, "Got all items");
+            }
+        }
+    }
 }
 
 // Called every frame
 void AAvatar::Tick( float DeltaTime )
 {
-
-   Super::Tick( DeltaTime );
+    Super::Tick( DeltaTime );
+    
+    //check for the win if the user has all of the items and hasn't won
+    if(hasAllItems && !hasWon){
+        checkForWin();
+    }
 }
 
 // Called to bind functionality to input
 void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
-   //Super::SetupPlayerInputComponent(InputComponent);
+    //Super::SetupPlayerInputComponent(InputComponent);
     check(InputComponent);
     InputComponent->BindAxis("Forward", this, &AAvatar::MoveForward);
     InputComponent->BindAxis("Strafe", this, &AAvatar::MoveRight);
@@ -96,7 +110,7 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
     InputComponent->BindAction("Inventory",IE_Pressed, this, &AAvatar::ToggleInventory);
     InputComponent->BindAction("Jump", IE_Pressed, this, &AAvatar::OnStartJump);
     InputComponent->BindAction("Jump", IE_Released, this, &AAvatar::OnStopJump);
-
+    
 }
 void AAvatar::MoveForward(float amount)
 {
@@ -120,7 +134,7 @@ void AAvatar::MoveRight(float amount)
 void AAvatar::Yaw(float amount)
 {
     
-    AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());  
+    AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());
 }
 
 void AAvatar::Pitch(float amount)
@@ -136,5 +150,28 @@ void AAvatar::OnStartJump()
 void AAvatar::OnStopJump()
 {
     bPressedJump = false;
+}
+
+
+/**
+ Function called to check and see if the user has finished the maze
+ 
+ - parameter void:
+ - returns: void
+ */
+void AAvatar::checkForWin(){
+    
+    TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
+    if(ActorItr){
+        
+        FVector difference = this->GetActorLocation() - ActorItr->finishingLocation;
+        
+        if((difference.Size() < WALL_SIZE + (WALL_SIZE/4)) && !hasWon){
+            hasWon = true;
+            
+            //TODO: Michele go crazy with all of the celebratory things!!!
+            GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Red, "YOU WIN!!!!!!!!! :D");
+        }
+    }
 }
 

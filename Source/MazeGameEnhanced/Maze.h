@@ -27,6 +27,8 @@ public:
     bool *allTheWalls;
     FVector *allTheItems;
     FVector2D mazeDimensions;
+    
+    FVector finishingLocation;
 
     float maxX, maxY;
     
