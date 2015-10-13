@@ -5,6 +5,9 @@
 #include "GameFramework/Actor.h"
 #include "Maze.generated.h"
 
+#define WALL_SIZE 200
+#define WALL_HEIGHT 400
+
 
 UCLASS()
 class MAZEGAMEENHANCED_API AMaze : public AActor
