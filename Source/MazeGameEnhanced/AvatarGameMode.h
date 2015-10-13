@@ -15,4 +15,11 @@ class MAZEGAMEENHANCED_API AAvatarGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
+    AAvatarGameMode();
+    
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+    
+public:
+    void movePlayerStart(FVector position);
 };
