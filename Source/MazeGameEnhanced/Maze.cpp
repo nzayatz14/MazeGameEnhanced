@@ -6,6 +6,7 @@
 #include "Wall.h"
 #include "itemsSpawning.h"
 #include "inventory.h"
+#include "AvatarGameMode.h"
 
 AWall **myWalls;
 
@@ -28,8 +29,8 @@ void AMaze::BeginPlay()
    int rows, cols;
    rows = 6;
    cols = 6;
-   maxX = 200 * cols;
-   maxY = 200 * rows;
+   maxX = WALL_SIZE * cols;
+   maxY = WALL_SIZE * rows;
    createMaze(maxX,maxY,rows,cols);
 }
 
@@ -71,7 +72,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
             BlockLocation = FVector(spaceBetweenBorders*i, spaceBetweenBorders*j, 0.f);
             
             AWall* NewWall = GetWorld()->SpawnActor<AWall>(BlockLocation, FRotator(0,90,0));
-            NewWall->setMeshSize(spaceBetweenBorders, 400);
+            NewWall->setMeshSize(spaceBetweenBorders, WALL_HEIGHT);
             
             if (i == 0 || i == cols){
                 NewWall->setIsBorder(true);
@@ -159,6 +160,13 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
         allTheWalls[wall] = false;
+        
+        //move player start to that location
+        TActorIterator<AAvatarGameMode> ActorItr =TActorIterator<AAvatarGameMode>(GetWorld());
+        
+        if (ActorItr) {
+            ActorItr->movePlayerStart(myWalls[wall]->GetActorLocation());
+        }
     }
     
     //end opening
@@ -170,6 +178,8 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
         allTheWalls[wall] = false;
+        
+        finishingLocation = myWalls[wall]->GetActorLocation();
     }
 }
 

@@ -36,7 +36,11 @@ public:
     void Yaw(float amount);
     void Pitch(float amount);
     
-    void ToggleInventory();  
+    void ToggleInventory();
+    void checkForWin();
+    
+    bool hasAllItems = false;
+    bool hasWon = false;
 
     UFUNCTION()
       void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);

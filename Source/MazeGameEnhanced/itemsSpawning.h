@@ -19,8 +19,10 @@ class MAZEGAMEENHANCED_API AitemsSpawning : public AActor
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* ItemsSpawningMesh;
 
+private:
+    int basicItemCount;
 	
-public:	
+public:
 	// Sets default values for this actor's properties
 	AitemsSpawning();
 
@@ -31,6 +33,7 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	FVector* spawn(int , int , float , FVector);
+    bool allItemsFound();
 	
 public:
 	/** Returns DummyRoot subobject **/
