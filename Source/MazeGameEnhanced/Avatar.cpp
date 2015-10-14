@@ -7,6 +7,7 @@
 #include "itemBasic.h"
 #include "itemsSpawning.h"
 #include "Maze.h"
+#include "AvatarGameMode.h"
 
 //Ainventory *HeroBag;
 
@@ -94,9 +95,17 @@ void AAvatar::Tick( float DeltaTime )
     
     //check for the win if the user has all of the items and hasn't won
     if(hasAllItems && !hasWon){
-        checkForWin();
+        
+        //move player start to that location
+        TActorIterator<AAvatarGameMode> ActorItr =TActorIterator<AAvatarGameMode>(GetWorld());
+        
+        if (ActorItr) {
+            
+            hasWon = ActorItr->checkForWin(hasWon, this->GetActorLocation());
+        }
     }
 }
+
 
 // Called to bind functionality to input
 void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
@@ -153,25 +162,5 @@ void AAvatar::OnStopJump()
 }
 
 
-/**
- Function called to check and see if the user has finished the maze
- 
- - parameter void:
- - returns: void
- */
-void AAvatar::checkForWin(){
-    
-    TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
-    if(ActorItr){
-        
-        FVector difference = this->GetActorLocation() - ActorItr->finishingLocation;
-        
-        if((difference.Size() < WALL_SIZE + (WALL_SIZE/4)) && !hasWon){
-            hasWon = true;
-            
-            //TODO: Michele go crazy with all of the celebratory things!!!
-            GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Red, "YOU WIN!!!!!!!!! :D");
-        }
-    }
-}
+
 

@@ -37,7 +37,6 @@ public:
     void Pitch(float amount);
     
     void ToggleInventory();
-    void checkForWin();
     
     bool hasAllItems = false;
     bool hasWon = false;
