@@ -40,6 +40,7 @@ public:
     
     bool hasAllItems = false;
     bool hasWon = false;
+    bool hasLost = false;
 
     UFUNCTION()
       void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
