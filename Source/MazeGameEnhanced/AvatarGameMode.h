@@ -8,13 +8,13 @@
 #include "AvatarGameMode.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class MAZEGAMEENHANCED_API AAvatarGameMode : public AGameMode
 {
-	GENERATED_BODY()
-
+    GENERATED_BODY()
+    
     AAvatarGameMode();
     
     // Called when the game starts or when spawned
@@ -22,4 +22,8 @@ class MAZEGAMEENHANCED_API AAvatarGameMode : public AGameMode
     
 public:
     void movePlayerStart(FVector position);
+    
+    bool checkLoss(int32 time);
+    bool checkForWin(bool hasWon, FVector loc);
+    bool won = false;
 };
