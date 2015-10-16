@@ -42,7 +42,6 @@ void AMyHUD::Tick(float DeltaSeconds){
         if (ActorItr->won && !hasWon){
             GetWorld()->GetTimerManager().ClearTimer(handleClock);
             hasWon = true;
-            printWon();
         }
     }
 }
@@ -75,6 +74,7 @@ void AMyHUD::DrawHUD()
         }
     }
     
+    
     // Draw the mini-map
     TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
     if(ActorItr){
@@ -83,6 +83,23 @@ void AMyHUD::DrawHUD()
         mazeDimensions  = ActorItr->GetMazeDimensions();
         DrawMinimap(MyWalls, AllTheItems, mazeDimensions, ScreenSize);
     }
+    
+
+    //Printing Game Over on Screen
+    TActorIterator<AAvatarGameMode> ActorItrLose =TActorIterator<AAvatarGameMode>(GetWorld());
+    if (ActorItrLose) {
+        if(ActorItrLose->checkLoss(time) && !hasWon){
+            GetWorld()->GetTimerManager().ClearTimer(handleClock);
+            printLoss(ScreenSize);
+        }
+    }
+    
+    //If you have won, print
+    if (hasWon){
+        printWon(ScreenSize);
+    }
+ 
+
 }
 
 // Credit: https://wiki.unrealengine.com/HUD,_Canvas,_Code_Sample_of_800%2B_Lines,_Create_Buttons_%26_Draw_Materials#Drawing_Images.2FTextures.2FMaterials
@@ -216,16 +233,6 @@ void AMyHUD::showTime() {
     const FString TimeDesc = FString::Printf(TEXT("%02d:%02d"), minutes, seconds);
     GEngine->AddOnScreenDebugMessage(2, 5.f, FColor::Red, TimeDesc);
     
-    
-    //check if the user has lost
-    TActorIterator<AAvatarGameMode> ActorItr =TActorIterator<AAvatarGameMode>(GetWorld());
-    
-    if (ActorItr) {
-        if(ActorItr->checkLoss(time)){
-            GetWorld()->GetTimerManager().ClearTimer(handleClock);
-            printLoss();
-        }
-    }
 }
 
 
@@ -235,19 +242,23 @@ void AMyHUD::showTime() {
  - parameter void
  - returns: void
  */
-void AMyHUD::printLoss(){
-    //TODO: Michele go crazy with all of the not so celebratory things :(
-    GEngine->AddOnScreenDebugMessage(4, 5.f, FColor::Red, "You lose :(((((((((");
+void AMyHUD::printLoss(FVector2D ScreenSize){
+    
+    FVector2D GameOverSize;
+    GetTextSize(TEXT("GAME OVER!!! YOU LOSE!!!"), GameOverSize.X, GameOverSize.Y, HUDFont);
+    DrawText(TEXT("GAME OVER!!! YOU LOSE!!!"), FColor::Red, (ScreenSize.X - GameOverSize.X) / 2.0f, (ScreenSize.Y - GameOverSize.Y) / 2.0f, HUDFont);
+
 }
 
 
-/**
+/**w
  Function called to print if the user has won
  
  - parameter void
  - returns: void
  */
-void AMyHUD::printWon(){
-    //TODO: Michele go crazy with all of the celebratory things!!!
-    GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, "YOU WIN!!!!!!!!! :D");
+void AMyHUD::printWon(FVector2D ScreenSize){
+    FVector2D WinSize;
+    GetTextSize(TEXT("YAY!! YOU WON!! :D"), WinSize.X, WinSize.Y, HUDFont);
+    DrawText(TEXT("YAY!! YOU WON!! :D "), FColor::Red, (ScreenSize.X - WinSize.X) / 2.0f, (ScreenSize.Y - WinSize.Y) / 2.0f, HUDFont);
 }
