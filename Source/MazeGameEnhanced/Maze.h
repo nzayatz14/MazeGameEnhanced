@@ -30,6 +30,8 @@ public:
     
     FVector finishingLocation;
 
+    int numRows=12, numCols=12;
+    
     float maxX, maxY;
     
     // Called every frame

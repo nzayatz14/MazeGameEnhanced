@@ -26,12 +26,9 @@ AMaze::AMaze()
 void AMaze::BeginPlay()
 {
    Super::BeginPlay();
-   int rows, cols;
-   rows = 6;
-   cols = 6;
-   maxX = WALL_SIZE * cols;
-   maxY = WALL_SIZE * rows;
-   createMaze(maxX,maxY,rows,cols);
+   maxX = WALL_SIZE * numCols;
+   maxY = WALL_SIZE * numRows;
+   createMaze(maxX,maxY,numRows,numCols);
 }
 
 // Called every frame
@@ -189,8 +186,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
  
  - parameter array: the array of connections made
  - parameter size: the size of the array
- - returns: a boolean representing whether or not a
- ll of the elements in the array are in 1 set
+ - returns: a boolean representing whether or not all of the elements in the array are in 1 set
 */
 bool AMaze::inOneSet(int array[], int size){
     
