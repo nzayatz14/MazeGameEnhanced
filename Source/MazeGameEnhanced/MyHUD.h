@@ -43,7 +43,7 @@ public:
     
     bool hasWon = false;
     
-    void printLoss();
-    void printWon();
+    void printLoss(FVector2D ScreenSize);
+    void printWon(FVector2D ScreenSize);
     
-};
+}; 
