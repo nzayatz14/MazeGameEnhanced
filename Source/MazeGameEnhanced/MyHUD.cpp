@@ -251,7 +251,7 @@ void AMyHUD::printLoss(FVector2D ScreenSize){
 }
 
 
-/**w
+/**
  Function called to print if the user has won
  
  - parameter void

@@ -121,9 +121,11 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
     InputComponent->BindAction("Jump", IE_Released, this, &AAvatar::OnStopJump);
     
 }
+
+
 void AAvatar::MoveForward(float amount)
 {
-    if(Controller && amount)
+    if(Controller && amount && !hasWon && !hasLost)
     {
         FVector fwd = GetActorForwardVector();
         AddMovementInput (fwd, amount);
@@ -133,29 +135,38 @@ void AAvatar::MoveForward(float amount)
 
 void AAvatar::MoveRight(float amount)
 {
-    if(Controller && amount)
+    if(Controller && amount && !hasWon && !hasLost)
     {
         FVector fwd = GetActorRightVector();
         AddMovementInput (fwd, amount);
     }
 }
 
+
 void AAvatar::Yaw(float amount)
 {
     
-    AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());
+    if (!hasWon && !hasLost){
+        AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());
+    }
 }
+
 
 void AAvatar::Pitch(float amount)
 {
-    
-    AddControllerPitchInput(-200.f * amount * GetWorld()->GetDeltaSeconds());
+    if (!hasWon && !hasLost){
+        AddControllerPitchInput(-200.f * amount * GetWorld()->GetDeltaSeconds());
+    }
 }
+
+
 void AAvatar::OnStartJump()
 {
     bPressedJump = true;
     
 }
+
+
 void AAvatar::OnStopJump()
 {
     bPressedJump = false;

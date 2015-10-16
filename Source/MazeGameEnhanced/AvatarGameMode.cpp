@@ -44,6 +44,13 @@ bool AAvatarGameMode::checkLoss(int32 time){
     
     //player loses if time runs out or if the score runs out
     if (time == 0){
+        
+        TActorIterator<AAvatar> ActorItr =TActorIterator<AAvatar>(GetWorld());
+        
+        if (ActorItr) {
+            ActorItr->hasLost = true;
+        }
+        
         return true;
     }
     
