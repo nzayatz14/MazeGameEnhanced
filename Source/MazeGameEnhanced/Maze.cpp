@@ -150,7 +150,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     }
     
     
-    //generate the 2 openings on opposite sides of the maze
+    //generate the beginning opening
     //start opening
     wall = rand()%rows;
     
@@ -165,9 +165,18 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
             ActorItr->movePlayerStart(myWalls[wall]->GetActorLocation());
         }
     }
-    
-    //end opening
-    wall = rand()%rows + (numSpaces);
+}
+
+
+/**
+ Opens the exit when the user has collected all of the items.
+ 
+ - parameter void:
+ - returns: void
+*/
+void AMaze::openExit(){
+    int numSpaces = numRows*numCols;
+    int wall = rand()%numRows + (numSpaces);
     
     FString cross = FString::FromInt(wall);
     //GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Green, *cross);

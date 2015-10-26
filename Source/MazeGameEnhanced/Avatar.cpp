@@ -80,9 +80,14 @@ void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const
         //check to see if all items have been found
         TActorIterator<AitemsSpawning> ActorItrItems =TActorIterator<AitemsSpawning>(GetWorld());
         if(ActorItrItems){
-            if(ActorItrItems->allItemsFound()){
+            if(ActorItrItems->allItemsFound() && !hasAllItems){
                 hasAllItems = true;
                 GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Blue, "Got all items");
+                
+                TActorIterator<AMaze> ActorItrMaze =TActorIterator<AMaze>(GetWorld());
+                if(ActorItrMaze){
+                    ActorItrMaze->openExit();
+                }
             }
         }
     }
