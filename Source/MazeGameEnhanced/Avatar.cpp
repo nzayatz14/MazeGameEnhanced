@@ -38,6 +38,7 @@ void AAvatar::ToggleInventory()
 
 void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit)
 {
+  
     int row, col;
     FVector *AllTheItems;
     FVector2D MazeDimensions;
@@ -61,28 +62,31 @@ void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const
             switch(((AitemBasic*)neighbor)->itemType){
                 case 'A':
                     HeroBag->push("Pill");
+                    Pill = true;
                     break;
                 case 'B':
                     HeroBag->push("Pyramid");
+                    Pill = false;
                     break;
                 case 'C':
                     HeroBag->push("Macaroni");
+                    Pill = false;
                     break;
                 case 'D':
                     HeroBag->push("Moldy Cheese");
+                    Pill= false;
                     break;
                 default:
                     HeroBag->push("Trash");
+                    Pill=false;
                     break;
             }
         }
-        
         //check to see if all items have been found
         TActorIterator<AitemsSpawning> ActorItrItems =TActorIterator<AitemsSpawning>(GetWorld());
         if(ActorItrItems){
             if(ActorItrItems->allItemsFound() && !hasAllItems){
                 hasAllItems = true;
-                GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Blue, "Got all items");
                 
                 TActorIterator<AMaze> ActorItrMaze =TActorIterator<AMaze>(GetWorld());
                 if(ActorItrMaze){
@@ -91,6 +95,7 @@ void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const
             }
         }
     }
+
 }
 
 // Called every frame
@@ -109,6 +114,7 @@ void AAvatar::Tick( float DeltaTime )
             hasWon = ActorItr->checkForWin(hasWon, this->GetActorLocation());
         }
     }
+    
 }
 
 

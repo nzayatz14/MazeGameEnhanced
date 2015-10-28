@@ -13,6 +13,7 @@ AWall::AWall()
     isHorizontal = false;
     isBorder = false;
     isStanding = true;
+    isObstacle = false;
     
     // Structure to hold one-time initialization
     struct FConstructorStatics
@@ -138,6 +139,37 @@ void AWall::setIsStanding(bool maybe){
         WallMesh->SetRelativeRotation(FRotator(0,0,180));
     }
 }
+
+
+/**
+ Sets whether or not the wall is an obstacle
+ 
+ - parameter maybe: whether or not the wall is an obstacle
+ - returns: void
+ */
+void AWall::setIsObstacle(bool maybe){
+    isObstacle = maybe;
+    
+    if (maybe == true) {
+        
+        WallMesh->SetRelativeLocation(FVector(0.f,0.f,-230.f));
+        WallMesh->SetRelativeRotation(FRotator(0,0,0));
+    
+       
+    }
+}
+
+
+/**
+ Returns whether or not the wall is an obstacle
+ 
+ - parameter void:
+ - returns: void
+ */
+bool AWall::getIsObstacle(){
+    return isObstacle;
+}
+
 
 
 /**

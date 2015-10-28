@@ -13,41 +13,41 @@ AWall **myWalls;
 // Sets default values
 AMaze::AMaze()
 {
-   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-   PrimaryActorTick.bCanEverTick = true;
+    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
     
     // Create dummy root scene component
     DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
     RootComponent = DummyRoot;
-
+    
 }
 
 // Called when the game starts or when spawned
 void AMaze::BeginPlay()
 {
-   Super::BeginPlay();
-   maxX = WALL_SIZE * numCols;
-   maxY = WALL_SIZE * numRows;
-   createMaze(maxX,maxY,numRows,numCols);
+    Super::BeginPlay();
+    maxX = WALL_SIZE * numCols;
+    maxY = WALL_SIZE * numRows;
+    createMaze(maxX,maxY,numRows,numCols);
 }
 
 // Called every frame
 void AMaze::Tick( float DeltaTime )
 {
-
-   Super::Tick( DeltaTime );
+    
+    Super::Tick( DeltaTime );
 }
 
 
 /**
-Function that generates a (rows x cols) maze
+ Function that generates a (rows x cols) maze
  
  - parameter x: the size of the floor in the x direction
  - parameter y: the size of the floor in the y direction
  - parameter rows: the number of walls desired in the x direction
  - parameter cols: the number of walls desired in the y direction
  - returns: void
-*/
+ */
 void AMaze::createMaze(float x, float y, int rows, int cols){
     float spaceBetweenBorders = x / rows;
     int numSpaces = rows*cols;
@@ -57,11 +57,11 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     mazeDimensions = FVector2D(rows, cols);
     myWalls = new AWall*[numBorders];
     allTheWalls = new bool[numBorders];
-
+    
     // when the walls spawn, spawn all the items distributed to fit rows, columns, spaceBetween
     AitemsSpawning *allItems = GetWorld()->SpawnActor<AitemsSpawning>(FVector(-100,-100,-500), FRotator(0,0,0));
     allTheItems = allItems->spawn(rows, cols, spaceBetweenBorders, BlockLocation );
-
+    
     //generate the horizontal walls
     for (int i = 0; i<=cols; i++){
         for (int j = 0; j<rows; j++){
@@ -149,6 +149,17 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
         }
     }
     
+    //Generate tthe random half-wall obstacles
+    int i = 0;
+    while(i<rows) {
+        wall = rand()% numBorders;
+        if(!myWalls[wall]->getIsBorder() && !myWalls[wall]->getIsStanding()){
+            myWalls[wall]->setIsObstacle(true);
+            allTheWalls[wall] = false;
+            i++;
+        }
+    }
+    
     
     //generate the beginning opening
     //start opening
@@ -173,13 +184,10 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
  
  - parameter void:
  - returns: void
-*/
+ */
 void AMaze::openExit(){
     int numSpaces = numRows*numCols;
     int wall = rand()%numRows + (numSpaces);
-    
-    FString cross = FString::FromInt(wall);
-    //GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Green, *cross);
     
     if(myWalls[wall]->getIsBorder() && myWalls[wall]->getIsStanding()){
         myWalls[wall]->setIsStanding(false);
@@ -190,13 +198,13 @@ void AMaze::openExit(){
 }
 
 
-/** 
+/**
  Takes in the array of connections checks to see whether or not all of the elements in the array are in 1 set
  
  - parameter array: the array of connections made
  - parameter size: the size of the array
  - returns: a boolean representing whether or not all of the elements in the array are in 1 set
-*/
+ */
 bool AMaze::inOneSet(int array[], int size){
     
     //only one element is allowed to have a -1 as its component

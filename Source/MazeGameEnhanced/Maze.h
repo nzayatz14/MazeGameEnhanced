@@ -30,7 +30,7 @@ public:
     
     FVector finishingLocation;
 
-    int numRows=6, numCols=6;
+    int numRows=4, numCols=4;
     
     float maxX, maxY;
     

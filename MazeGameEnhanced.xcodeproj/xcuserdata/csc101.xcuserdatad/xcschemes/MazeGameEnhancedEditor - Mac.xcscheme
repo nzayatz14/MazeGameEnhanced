@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7789DDDFF9038CCB54ACB8D9"
+               BlueprintIdentifier = "72DC17C10102D5469E9BFA27"
                BuildableName = "MazeGameEnhancedEditor - Mac"
                BlueprintName = "MazeGameEnhancedEditor - Mac"
                ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F82B301152A8440F3511FFD"
-               BuildableName = "libUE4XcodeHelper.a"
-               BlueprintName = "UE4XcodeHelper"
+               BlueprintIdentifier = "5FB3AEDF0F0408C9A0FB2497"
+               BuildableName = "UE4CmdLineRun.xctest"
+               BlueprintName = "UE4CmdLineRun"
                ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7789DDDFF9038CCB54ACB8D9"
+            BlueprintIdentifier = "72DC17C10102D5469E9BFA27"
             BuildableName = "MazeGameEnhancedEditor - Mac"
             BlueprintName = "MazeGameEnhancedEditor - Mac"
             ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -65,7 +65,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7789DDDFF9038CCB54ACB8D9"
+            BlueprintIdentifier = "72DC17C10102D5469E9BFA27"
             BuildableName = "MazeGameEnhancedEditor - Mac"
             BlueprintName = "MazeGameEnhancedEditor - Mac"
             ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3B4E08A75695199A4B33E55"
+            BlueprintIdentifier = "72DC17C10102D5469E9BFA27"
             BuildableName = "UE4Editor.app"
             BlueprintName = "UE4Editor"
             ReferencedContainer = "container:UE4.xcodeproj">
