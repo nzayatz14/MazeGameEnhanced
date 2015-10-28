@@ -30,10 +30,14 @@ public:
     
     FVector finishingLocation;
 
+    int numRows=6, numCols=6;
+    
     float maxX, maxY;
     
     // Called every frame
     virtual void Tick( float DeltaSeconds ) override;
+    
+    void openExit();
     
 public:
     /** Returns DummyRoot subobject **/

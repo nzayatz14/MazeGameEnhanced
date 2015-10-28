@@ -26,6 +26,14 @@ AMyHUD::AMyHUD(const class FObjectInitializer &PCIP):Super(PCIP)
 void AMyHUD::BeginPlay(){
     Super::BeginPlay();
     
+    //move player start to that location
+    TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
+    
+    //check to see of the user has won
+    if (ActorItr) {
+        time = ActorItr->numRows * 10;
+    }
+    
     //set up timer
     GetWorld()->GetTimerManager().SetTimer(handleClock, this, &AMyHUD::showTime, 1.0f, true);
 }
@@ -251,7 +259,7 @@ void AMyHUD::printLoss(FVector2D ScreenSize){
 }
 
 
-/**w
+/**
  Function called to print if the user has won
  
  - parameter void

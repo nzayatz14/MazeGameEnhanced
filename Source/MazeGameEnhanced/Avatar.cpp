@@ -80,9 +80,14 @@ void AAvatar::onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const
         //check to see if all items have been found
         TActorIterator<AitemsSpawning> ActorItrItems =TActorIterator<AitemsSpawning>(GetWorld());
         if(ActorItrItems){
-            if(ActorItrItems->allItemsFound()){
+            if(ActorItrItems->allItemsFound() && !hasAllItems){
                 hasAllItems = true;
                 GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Blue, "Got all items");
+                
+                TActorIterator<AMaze> ActorItrMaze =TActorIterator<AMaze>(GetWorld());
+                if(ActorItrMaze){
+                    ActorItrMaze->openExit();
+                }
             }
         }
     }
@@ -121,9 +126,11 @@ void AAvatar::SetupPlayerInputComponent(class UInputComponent* InputComponent)
     InputComponent->BindAction("Jump", IE_Released, this, &AAvatar::OnStopJump);
     
 }
+
+
 void AAvatar::MoveForward(float amount)
 {
-    if(Controller && amount)
+    if(Controller && amount && !hasWon && !hasLost)
     {
         FVector fwd = GetActorForwardVector();
         AddMovementInput (fwd, amount);
@@ -133,29 +140,38 @@ void AAvatar::MoveForward(float amount)
 
 void AAvatar::MoveRight(float amount)
 {
-    if(Controller && amount)
+    if(Controller && amount && !hasWon && !hasLost)
     {
         FVector fwd = GetActorRightVector();
         AddMovementInput (fwd, amount);
     }
 }
 
+
 void AAvatar::Yaw(float amount)
 {
     
-    AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());
+    if (!hasWon && !hasLost){
+        AddControllerYawInput(200.f * amount * GetWorld()->GetDeltaSeconds());
+    }
 }
+
 
 void AAvatar::Pitch(float amount)
 {
-    
-    AddControllerPitchInput(-200.f * amount * GetWorld()->GetDeltaSeconds());
+    if (!hasWon && !hasLost){
+        AddControllerPitchInput(-200.f * amount * GetWorld()->GetDeltaSeconds());
+    }
 }
+
+
 void AAvatar::OnStartJump()
 {
     bPressedJump = true;
     
 }
+
+
 void AAvatar::OnStopJump()
 {
     bPressedJump = false;

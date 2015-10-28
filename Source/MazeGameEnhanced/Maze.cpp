@@ -26,12 +26,9 @@ AMaze::AMaze()
 void AMaze::BeginPlay()
 {
    Super::BeginPlay();
-   int rows, cols;
-   rows = 6;
-   cols = 6;
-   maxX = WALL_SIZE * cols;
-   maxY = WALL_SIZE * rows;
-   createMaze(maxX,maxY,rows,cols);
+   maxX = WALL_SIZE * numCols;
+   maxY = WALL_SIZE * numRows;
+   createMaze(maxX,maxY,numRows,numCols);
 }
 
 // Called every frame
@@ -153,7 +150,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
     }
     
     
-    //generate the 2 openings on opposite sides of the maze
+    //generate the beginning opening
     //start opening
     wall = rand()%rows;
     
@@ -168,9 +165,18 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
             ActorItr->movePlayerStart(myWalls[wall]->GetActorLocation());
         }
     }
-    
-    //end opening
-    wall = rand()%rows + (numSpaces);
+}
+
+
+/**
+ Opens the exit when the user has collected all of the items.
+ 
+ - parameter void:
+ - returns: void
+*/
+void AMaze::openExit(){
+    int numSpaces = numRows*numCols;
+    int wall = rand()%numRows + (numSpaces);
     
     FString cross = FString::FromInt(wall);
     //GEngine->AddOnScreenDebugMessage(3, 1.0f, FColor::Green, *cross);
@@ -189,8 +195,7 @@ void AMaze::createMaze(float x, float y, int rows, int cols){
  
  - parameter array: the array of connections made
  - parameter size: the size of the array
- - returns: a boolean representing whether or not a
- ll of the elements in the array are in 1 set
+ - returns: a boolean representing whether or not all of the elements in the array are in 1 set
 */
 bool AMaze::inOneSet(int array[], int size){
     
