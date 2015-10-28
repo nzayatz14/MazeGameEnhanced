@@ -26,4 +26,5 @@ public:
     bool checkLoss(int32 time);
     bool checkForWin(bool hasWon, FVector loc);
     bool won = false;
+
 };

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "55C54D6E25F988E611BE8773"
+               BlueprintIdentifier = "6738E7EFDB450C93FB7D85E9"
                BuildableName = "MazeGameEnhanced - Mac"
                BlueprintName = "MazeGameEnhanced - Mac"
                ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F82B301152A8440F3511FFD"
-               BuildableName = "libUE4XcodeHelper.a"
-               BlueprintName = "UE4XcodeHelper"
+               BlueprintIdentifier = "5FB3AEDF0F0408C9A0FB2497"
+               BuildableName = "UE4CmdLineRun.xctest"
+               BlueprintName = "UE4CmdLineRun"
                ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "55C54D6E25F988E611BE8773"
+            BlueprintIdentifier = "6738E7EFDB450C93FB7D85E9"
             BuildableName = "MazeGameEnhanced - Mac"
             BlueprintName = "MazeGameEnhanced - Mac"
             ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -65,7 +65,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "55C54D6E25F988E611BE8773"
+            BlueprintIdentifier = "6738E7EFDB450C93FB7D85E9"
             BuildableName = "MazeGameEnhanced - Mac"
             BlueprintName = "MazeGameEnhanced - Mac"
             ReferencedContainer = "container:MazeGameEnhanced.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ACF0E24254FFB89239EBE569"
+            BlueprintIdentifier = "6738E7EFDB450C93FB7D85E9"
             BuildableName = "MazeGameEnhanced.app"
             BlueprintName = "MazeGameEnhanced"
             ReferencedContainer = "container:UE4.xcodeproj">

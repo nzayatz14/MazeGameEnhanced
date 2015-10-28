@@ -36,6 +36,8 @@ void AMyHUD::BeginPlay(){
     
     //set up timer
     GetWorld()->GetTimerManager().SetTimer(handleClock, this, &AMyHUD::showTime, 1.0f, true);
+    
+    
 }
 
 
@@ -52,6 +54,7 @@ void AMyHUD::Tick(float DeltaSeconds){
             hasWon = true;
         }
     }
+    
 }
 
 
@@ -82,6 +85,7 @@ void AMyHUD::DrawHUD()
         }
     }
     
+
     
     // Draw the mini-map
     TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
@@ -231,8 +235,27 @@ void AMyHUD::DrawActor(FVector2D ScreenSize, int cols, int rows, float LineLengt
  */
 void AMyHUD::showTime() {
     
-    //increment time
+    //decrement time
     time--;
+    
+    //Increment Time if you hit special item
+    TActorIterator<AAvatar> ActorItrHit =TActorIterator<AAvatar>(GetWorld());
+    if (ActorItrHit) {
+        if (ActorItrHit->Pill) {
+            
+            //move player start to that location
+            TActorIterator<AMaze> ActorItr =TActorIterator<AMaze>(GetWorld());
+            
+            //check to see of the user has won
+            if (ActorItr) {
+                time += ActorItr->numRows;
+            }else{
+               time += 5;
+            }
+            
+            ActorItrHit->Pill = false;
+        }
+    }
     
     //calculate minutes and seconds
     int32 minutes = time / 60;

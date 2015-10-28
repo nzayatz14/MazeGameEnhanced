@@ -37,6 +37,7 @@ public:
     bool isHorizontal;
     bool isBorder;
     bool isStanding;
+    bool isObstacle;
     
     void setHorizontal(bool maybe);
     bool getIsHorizontal();
@@ -44,6 +45,8 @@ public:
     bool getIsBorder();
     void setIsStanding(bool maybe);
     bool getIsStanding();
+    void setIsObstacle(bool maybe);
+    bool getIsObstacle();
 
 public:
     /** Returns DummyRoot subobject **/

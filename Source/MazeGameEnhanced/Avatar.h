@@ -35,13 +35,16 @@ public:
     void MoveRight(float amount);
     void Yaw(float amount);
     void Pitch(float amount);
+
     
     void ToggleInventory();
     
+  
     bool hasAllItems = false;
     bool hasWon = false;
     bool hasLost = false;
-
+    bool Pill = false;
+    
     UFUNCTION()
       void onHit(AActor *Self, AActor *neighbor, FVector NormalImpulse, const FHitResult &Hit);
     //sets jump flag when key is pressed
